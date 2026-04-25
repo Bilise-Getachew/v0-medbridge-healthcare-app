@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Activity, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { Activity, Loader2, AlertCircle, Eye, EyeOff, User, Stethoscope } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login, isAuthenticated } from "@/lib/auth";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { login, isAuthenticated, getAuthUser } from "@/lib/auth";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,10 +17,16 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<"patient" | "doctor">("patient");
 
   useEffect(() => {
     if (isAuthenticated()) {
-      router.replace("/dashboard");
+      const user = getAuthUser();
+      if (user?.role === "doctor") {
+        router.replace("/doctor/dashboard");
+      } else {
+        router.replace("/patient/dashboard");
+      }
     }
   }, [router]);
 
@@ -28,16 +35,29 @@ export default function LoginPage() {
     setError("");
     setIsLoading(true);
 
-    // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    const success = login(username, password);
+    const user = login(username, password);
     
-    if (success) {
-      router.push("/dashboard");
+    if (user) {
+      if (user.role === "doctor") {
+        router.push("/doctor/dashboard");
+      } else {
+        router.push("/patient/dashboard");
+      }
     } else {
       setError("Invalid username or password");
       setIsLoading(false);
+    }
+  };
+
+  const fillCredentials = (role: "patient" | "doctor") => {
+    if (role === "patient") {
+      setUsername("patient");
+      setPassword("1234");
+    } else {
+      setUsername("doctor");
+      setPassword("1234");
     }
   };
 
@@ -50,10 +70,37 @@ export default function LoginPage() {
           </div>
           <CardTitle className="text-2xl font-bold">Welcome to Medbridge</CardTitle>
           <CardDescription>
-            Sign in to access your healthcare assistant
+            Sign in to access your healthcare portal
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <Tabs value={selectedRole} onValueChange={(v) => setSelectedRole(v as "patient" | "doctor")} className="mb-6">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="patient" className="gap-2">
+                <User className="h-4 w-4" />
+                Patient
+              </TabsTrigger>
+              <TabsTrigger value="doctor" className="gap-2">
+                <Stethoscope className="h-4 w-4" />
+                Doctor
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="patient" className="mt-4">
+              <div className="rounded-lg bg-secondary/50 p-3 text-center text-sm">
+                <p className="text-secondary-foreground">
+                  Access your prescriptions, health records, and chat with our AI assistant.
+                </p>
+              </div>
+            </TabsContent>
+            <TabsContent value="doctor" className="mt-4">
+              <div className="rounded-lg bg-primary/10 p-3 text-center text-sm">
+                <p className="text-primary">
+                  Manage patients, write prescriptions, and access emergency protocols.
+                </p>
+              </div>
+            </TabsContent>
+          </Tabs>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
@@ -117,11 +164,29 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 rounded-lg bg-muted/50 p-4">
-            <p className="mb-2 text-center text-sm font-medium text-foreground">Demo Credentials</p>
-            <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-              <span>Username: <code className="rounded bg-muted px-1 py-0.5 font-mono">admin</code></span>
-              <span>Password: <code className="rounded bg-muted px-1 py-0.5 font-mono">1234</code></span>
+          <div className="mt-6 space-y-3">
+            <p className="text-center text-sm font-medium text-foreground">Demo Credentials</p>
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-auto flex-col gap-1 py-3"
+                onClick={() => fillCredentials("patient")}
+              >
+                <User className="h-4 w-4 text-muted-foreground" />
+                <span className="text-xs font-medium">Patient Login</span>
+                <span className="text-xs text-muted-foreground">patient / 1234</span>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-auto flex-col gap-1 py-3"
+                onClick={() => fillCredentials("doctor")}
+              >
+                <Stethoscope className="h-4 w-4 text-muted-foreground" />
+                <span className="text-xs font-medium">Doctor Login</span>
+                <span className="text-xs text-muted-foreground">doctor / 1234</span>
+              </Button>
             </div>
           </div>
         </CardContent>

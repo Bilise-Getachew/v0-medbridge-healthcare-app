@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { login as authLogin, logout as authLogout, getAuthUser, type AuthUser } from "@/lib/auth";
+import { login as authLogin, logout as authLogout, getAuthUser, type AuthUser, type UserRole } from "@/lib/auth";
 
 export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -16,13 +16,18 @@ export function useAuth() {
   }, []);
 
   const login = useCallback(
-    (username: string, password: string): boolean => {
-      const success = authLogin(username, password);
-      if (success) {
-        setUser(getAuthUser());
-        router.push("/dashboard");
+    (username: string, password: string): AuthUser | null => {
+      const authUser = authLogin(username, password);
+      if (authUser) {
+        setUser(authUser);
+        // Redirect based on role
+        if (authUser.role === "doctor") {
+          router.push("/doctor/dashboard");
+        } else {
+          router.push("/patient/dashboard");
+        }
       }
-      return success;
+      return authUser;
     },
     [router]
   );
@@ -33,10 +38,20 @@ export function useAuth() {
     router.push("/login");
   }, [router]);
 
+  const isRole = useCallback(
+    (role: UserRole): boolean => {
+      return user?.role === role;
+    },
+    [user]
+  );
+
   return {
     user,
     isLoading,
     isAuthenticated: !!user,
+    isPatient: user?.role === "patient",
+    isDoctor: user?.role === "doctor",
+    isRole,
     login,
     logout,
   };
