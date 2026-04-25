@@ -1,0 +1,257 @@
+{
+  "heart-attack": {
+    "id": "heart-attack",
+    "title": "Heart Attack",
+    "icon": "heart",
+    "severity": "critical",
+    "symptoms": [
+      "Chest pain or pressure",
+      "Pain radiating to arm, jaw, or back",
+      "Shortness of breath",
+      "Cold sweats",
+      "Nausea or lightheadedness"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "action": "Call emergency services (911) immediately",
+        "duration": 30,
+        "critical": true
+      },
+      {
+        "order": 2,
+        "action": "Help the person sit down and stay calm",
+        "duration": 15,
+        "critical": false
+      },
+      {
+        "order": 3,
+        "action": "Loosen any tight clothing around chest and neck",
+        "duration": 15,
+        "critical": false
+      },
+      {
+        "order": 4,
+        "action": "If available and not allergic, give aspirin (325mg) to chew",
+        "duration": 30,
+        "critical": true
+      },
+      {
+        "order": 5,
+        "action": "If person becomes unconscious, begin CPR if trained",
+        "duration": 0,
+        "critical": true
+      },
+      {
+        "order": 6,
+        "action": "Stay with person until help arrives",
+        "duration": 0,
+        "critical": false
+      }
+    ]
+  },
+  "severe-bleeding": {
+    "id": "severe-bleeding",
+    "title": "Severe Bleeding",
+    "icon": "droplets",
+    "severity": "critical",
+    "symptoms": [
+      "Heavy blood flow that won't stop",
+      "Blood soaking through bandages",
+      "Pale or clammy skin",
+      "Rapid heartbeat",
+      "Confusion or dizziness"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "action": "Call emergency services (911) immediately",
+        "duration": 30,
+        "critical": true
+      },
+      {
+        "order": 2,
+        "action": "Apply direct pressure with clean cloth or bandage",
+        "duration": 0,
+        "critical": true
+      },
+      {
+        "order": 3,
+        "action": "Keep the injured area elevated above heart level if possible",
+        "duration": 10,
+        "critical": false
+      },
+      {
+        "order": 4,
+        "action": "Do NOT remove blood-soaked bandages, add more on top",
+        "duration": 0,
+        "critical": true
+      },
+      {
+        "order": 5,
+        "action": "Keep the person warm and calm",
+        "duration": 0,
+        "critical": false
+      },
+      {
+        "order": 6,
+        "action": "If bleeding from limb and won't stop, apply tourniquet above wound",
+        "duration": 60,
+        "critical": true
+      }
+    ]
+  },
+  "fainting": {
+    "id": "fainting",
+    "title": "Fainting / Loss of Consciousness",
+    "icon": "user-x",
+    "severity": "moderate",
+    "symptoms": [
+      "Sudden collapse",
+      "Pale skin",
+      "No response to voice or touch",
+      "Weak pulse",
+      "Shallow breathing"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "action": "Check if the person is breathing",
+        "duration": 10,
+        "critical": true
+      },
+      {
+        "order": 2,
+        "action": "If not breathing, call 911 and begin CPR",
+        "duration": 30,
+        "critical": true
+      },
+      {
+        "order": 3,
+        "action": "Lay the person flat on their back",
+        "duration": 10,
+        "critical": false
+      },
+      {
+        "order": 4,
+        "action": "Elevate legs about 12 inches to improve blood flow to brain",
+        "duration": 15,
+        "critical": false
+      },
+      {
+        "order": 5,
+        "action": "Loosen any restrictive clothing",
+        "duration": 15,
+        "critical": false
+      },
+      {
+        "order": 6,
+        "action": "If unconscious for more than 1 minute, call emergency services",
+        "duration": 0,
+        "critical": true
+      }
+    ]
+  },
+  "allergic-reaction": {
+    "id": "allergic-reaction",
+    "title": "Severe Allergic Reaction",
+    "icon": "alert-triangle",
+    "severity": "critical",
+    "symptoms": [
+      "Difficulty breathing or swallowing",
+      "Swelling of face, lips, or throat",
+      "Hives or widespread rash",
+      "Rapid heartbeat",
+      "Dizziness or fainting"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "action": "Call emergency services (911) immediately",
+        "duration": 30,
+        "critical": true
+      },
+      {
+        "order": 2,
+        "action": "If person has an EpiPen, help them use it on outer thigh",
+        "duration": 30,
+        "critical": true
+      },
+      {
+        "order": 3,
+        "action": "Help person lie down with legs elevated",
+        "duration": 15,
+        "critical": false
+      },
+      {
+        "order": 4,
+        "action": "If they have trouble breathing, let them sit up",
+        "duration": 10,
+        "critical": false
+      },
+      {
+        "order": 5,
+        "action": "Give antihistamine if available and person can swallow",
+        "duration": 30,
+        "critical": false
+      },
+      {
+        "order": 6,
+        "action": "Be ready to perform CPR if person stops breathing",
+        "duration": 0,
+        "critical": true
+      }
+    ]
+  },
+  "choking": {
+    "id": "choking",
+    "title": "Choking",
+    "icon": "wind",
+    "severity": "critical",
+    "symptoms": [
+      "Cannot speak or cry out",
+      "Difficulty breathing or noisy breathing",
+      "Weak cough or no cough",
+      "Skin turning blue",
+      "Clutching throat"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "action": "Ask 'Are you choking?' - If they cannot speak, act immediately",
+        "duration": 5,
+        "critical": true
+      },
+      {
+        "order": 2,
+        "action": "Stand behind the person and wrap arms around waist",
+        "duration": 10,
+        "critical": true
+      },
+      {
+        "order": 3,
+        "action": "Make a fist with one hand, place thumb side against abdomen above navel",
+        "duration": 10,
+        "critical": true
+      },
+      {
+        "order": 4,
+        "action": "Grasp fist with other hand, give quick upward thrusts",
+        "duration": 0,
+        "critical": true
+      },
+      {
+        "order": 5,
+        "action": "Repeat thrusts until object is expelled or person can breathe",
+        "duration": 0,
+        "critical": true
+      },
+      {
+        "order": 6,
+        "action": "If person becomes unconscious, call 911 and begin CPR",
+        "duration": 30,
+        "critical": true
+      }
+    ]
+  }
+}
